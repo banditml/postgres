@@ -1,3 +1,6 @@
+FORKED WITH SETTINGS SPECIFIC FOR LOCAL DEVELOPMENT
+---
+
 # Postgres + goodies
 
 Unmodified Postgres with some useful plugins. Our goal with this repo is not to modify Postgres, but to provide some of the most common extensions with a one-click install.
