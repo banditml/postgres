@@ -2,7 +2,7 @@ name: CD
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   docker:
@@ -18,15 +18,14 @@ jobs:
       - name: Amazon ECR Login
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-        
-      - name: Build, tag, push
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: postgres-dev
-          IMAGE_TAG: ${{ github.sha }} 
-        run: |
-          docker build \
-            -t $ECR_REGISTRY/$ECR_REPOSITORY:latest \
-            -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
-            .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: |
+            postgres-dev:latest
+            postgres-dev:${{ github.sha }}
