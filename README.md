@@ -1,3 +1,6 @@
+FORKED WITH SETTINGS SPECIFIC FOR LOCAL DEVELOPMENT
+---
+
 # Postgres + goodies
 
 Unmodified Postgres with some useful plugins. Our goal with this repo is not to modify Postgres, but to provide some of the most common extensions with a one-click install.
@@ -5,7 +8,7 @@ Unmodified Postgres with some useful plugins. Our goal with this repo is not to 
 ## Features
 
 - ✅ Postgres [12](https://www.postgresql.org/about/news/1976/). Includes [generated columns](https://www.postgresql.org/docs/12/ddl-generated-columns.html) and [JSON path](https://www.postgresql.org/docs/12/functions-json.html#FUNCTIONS-SQLJSON-PATH) support.
-- ✅ Ubuntu 18.04 (Bionic). 
+- ✅ Ubuntu 18.04 (Bionic).
 - ✅ [pg-contrib-12](https://www.postgresql.org/docs/12/contrib.html). Because everyone should enable `pg_stat_statements`.
 - ✅ [wal_level](https://www.postgresql.org/docs/current/runtime-config-wal.html) = logical and [max_replication_slots](https://www.postgresql.org/docs/current/runtime-config-replication.html) = 5. Ready for replication.
 - ✅ [PostGIS](https://postgis.net/). Postgres' most popular extension - support for geographic objects.
@@ -15,8 +18,9 @@ Unmodified Postgres with some useful plugins. Our goal with this repo is not to 
 - ✅ [pgsql-http](https://github.com/pramsey/pgsql-http). HTTP client for Postgres.
 - ✅ [plpgsql_check](https://github.com/okbob/plpgsql_check). Linter tool for PL/pgSQL.
 - ✅ [plv8](https://github.com/plv8/plv8). Write in Javascript functions in Postgres.
-- ✅ [plpython3u](https://www.postgresql.org/docs/current/plpython-python23.html). Python3 enabled by default. Write in Python functions in Postgres.
-- ✅ [PL/Java](https://github.com/tada/pljaval). Write in Java functions in Postgres.
+- ✅ [PL/Java](https://github.com/tada/pljava). Write in Java functions in Postgres.
+- ✅ [pg_cron](https://github.com/citusdata/pg_cron). Run CRON jobs inside Postgres.
+- ✅ [pg-safeupdate](https://github.com/eradman/pg-safeupdate). Protect your data from accidental updates or deletes.
 
 ## Install
 
@@ -28,11 +32,11 @@ See all installation instructions in the [repo wiki](https://github.com/supabase
 
 ## Motivation
 
-After talking to a lot of techies, we've found that most believe Postgres is the best (operational) database but they *still* choose other databases. This is overwhelmingly because "the other one was quicker/easier". Our goal is to make it fast and simple to get started with Postgres, so that we never hear that excuse again. 
+After talking to a lot of techies, we've found that most believe Postgres is the best (operational) database but they _still_ choose other databases. This is overwhelmingly because "the other one was quicker/easier". Our goal is to make it fast and simple to get started with Postgres, so that we never hear that excuse again.
 
 Our secondary goal is to show off a few of Postgres' most exciting features. This is to convince new developers to choose it over other database (a decision we hope they'll appreciate once they start scaling).
 
-Finally, this is the same build we offer at [Supabase](https://supabase.io), and everything we do is opensource. This repo makes it easy to *install* Postgres, Supabase makes it easy to *use* Postgres.
+Finally, this is the same build we offer at [Supabase](https://supabase.io), and everything we do is opensource. This repo makes it easy to _install_ Postgres, Supabase makes it easy to _use_ Postgres.
 
 ## Roadmap
 
@@ -43,3 +47,9 @@ Finally, this is the same build we offer at [Supabase](https://supabase.io), and
 ## License
 
 [The PostgreSQL License](https://opensource.org/licenses/postgresql). We realize that licensing is tricky since we are bundling all the various plugins. If we have infringed on any license, let us know and we will make the necessary changes (or remove that extension from this repo).
+
+## Sponsors
+
+We are building the features of Firebase using enterprise-grade, open source products. We support existing communities wherever possible, and if the products don’t exist we build them and open source them ourselves. 
+
+[![New Sponsor](https://user-images.githubusercontent.com/10214025/90518111-e74bbb00-e198-11ea-8f88-c9e3c1aa4b5b.png)](https://github.com/sponsors/supabase)

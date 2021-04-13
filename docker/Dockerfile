@@ -1,5 +1,9 @@
 FROM postgres:12
 
+# install pgcron
+RUN apt-get update \ 
+      && apt-get install postgresql-12-cron -y
+
 # install postgis
 ENV POSTGIS_MAJOR 3
 ENV POSTGIS_VERSION 3.0.0+dfsg-2~exp1.pgdg100+1
@@ -27,10 +31,6 @@ RUN pgtapDependencies="git \
     && apt-get remove -y ${pgtapDependencies} \
     && apt-get autoremove -y \
     && rm -rf /tmp/pgtap /var/lib/apt/lists/* /var/tmp/*
-
-# install plpython3
-RUN apt-get update \ 
-      && apt-get install postgresql-plpython3-12 -y
 
 # install pgAudit
 ENV PGAUDIT_VERSION=1.4.0
@@ -112,6 +112,24 @@ RUN plpgsqlCheckDependencies="git \
     && apt-get autoremove -y \
     && rm -rf /tmp/plpgsql_check /var/lib/apt/lists/* /var/tmp/*
 
+# install pg-safeupdate
+ENV PGSAFEUPDATE_VERSION=1.3
+
+RUN pgSafeUpdateDependencies="pgxnclient \
+postgresql-server-dev-12" \ 
+&& apt-get update \
+&& apt-get install -y --no-install-recommends ${pgSafeUpdateDependencies} \
+&& cd /tmp \
+&& git clone https://github.com/eradman/pg-safeupdate.git \
+&& cd pg-safeupdate \
+&& git checkout ${PGSAFEUPDATE_VERSION} \
+&& make \
+&& make install \
+&& apt-get clean \
+&& apt-get remove -y ${pgSafeUpdateDependencies} \
+&& apt-get autoremove -y \
+&& rm -rf /tmp/pg-safeupdate /var/lib/apt/lists/* /var/tmp/*
+
 # install plv8
 ENV PLV8_VERSION=r3.0alpha
 
@@ -147,7 +165,7 @@ RUN plv8Dependencies="build-essential \
   && rm -rf /tmp/build /var/lib/apt/lists/* /var/tmp/*
 
 # install pljava
-ENV PLJAVA_VERSION=V1_5_5
+ENV PLJAVA_VERSION=V1_6_0
 
 RUN pljavaDependencies="git \
     ca-certificates \
@@ -166,7 +184,7 @@ RUN pljavaDependencies="git \
     && cd pljava \
     && git checkout ${PLJAVA_VERSION} \
     && mvn clean install \
-    && java -jar pljava-packaging/target/pljava-pg12.3-amd64-Linux-gpp.jar \
+    && java -jar pljava-packaging/target/pljava-pg12.jar \
     && apt-get clean \
     && apt-get remove -y ${pljavaDependencies} \
     && apt-get autoremove -y \
@@ -176,5 +194,8 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends default-jdk-headless \
     && rm -rf /var/lib/apt/lists/* /var/tmp/*
 
+ENV LANGUAGE=en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
 RUN mkdir -p /docker-entrypoint-initdb.d
 ADD ./mnt /docker-entrypoint-initdb.d/
