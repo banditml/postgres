@@ -5,7 +5,7 @@ on:
     branches: [ master ]
 
 jobs:
-  provision:
+  docker:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,7 +16,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - name: Amazon ECR Login
+        id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
+        
       - name: Build, tag, push
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
