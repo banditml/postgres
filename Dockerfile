@@ -1,4 +1,4 @@
-FROM postgres:12
+FROM postgres@sha256:06277995d7028f4455e56f21864146ee2425c83308dc96283c7a96e6881cc826
 
 # install pgcron
 RUN apt-get update \ 
