@@ -19,7 +19,10 @@ grant anon              to authenticator;
 grant authenticated     to authenticator;
 grant service_role      to authenticator;
 
-create user migrator with password 'postgres' createdb;
+create user migrator with password 'postgres' superuser;
+
+create database reset;
+create database shadow;
 
 grant usage                     on schema public to postgres, anon, authenticated, service_role;
 alter default privileges in schema public grant all on tables to postgres, anon, authenticated, service_role;
